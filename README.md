@@ -1,2 +1,2 @@
-# dockerized-postgres-and-express-api
-Running multicontainers runnign postgres database and an expressjs api in docker compose 
+# Dockerized Postgres and Express API
+Running multicontainers running `postgres` database and an `expressjs` api in `docker compose` 
