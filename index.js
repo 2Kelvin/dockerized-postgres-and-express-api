@@ -4,7 +4,6 @@ const { Pool } = require('pg');
 const app = express();
 const port = 3000;
 
-// The 'host' matches the service name in docker-compose.yml
 const pool = new Pool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
