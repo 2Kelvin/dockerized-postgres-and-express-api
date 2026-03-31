@@ -1,13 +1,17 @@
 services:
+  # postgres database container
   postgres_db:
     image: postgres:18.3
     environment:
-      - POSTGRES_USER=user1
-      - POSTGRES_PASSWORD=pazword
-      - POSTGRES_DB=time_connected
+      POSTGRES_USER: user1
+      POSTGRES_DB: time_connected
+      POSTGRES_PASSWORD: /run/secrets/postgres_db_password
+    secrets:
+      - postgres_db_password
     expose:
       - 5432
 
+  # expressjs api container
   express_api:
     depends_on:
       - postgres_db
@@ -15,8 +19,14 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DB_HOST=postgres_db
-      - DB_USER=user1
-      - DB_NAME=time_connected
-      - DB_PORT=5432
-      - DB_PASSWORD=pazword
+      DB_HOST: postgres_db
+      DB_USER: user1
+      DB_NAME: time_connected
+      DB_PORT: 5432
+      DB_PASSWORD: /run/secrets/postgres_db_password
+    secrets:
+      - postgres_db_password
+
+secrets:
+  postgres_db_password:
+    file: ./postgres-password.txt
